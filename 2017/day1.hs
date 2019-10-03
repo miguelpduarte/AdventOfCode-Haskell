@@ -8,8 +8,17 @@ solveDay1Part2 = do
     contents <- readFile "2017/day1_input.txt"
     print (captcha2 (read contents))
 
+
+-- Enhancement after learning more
 captcha :: Integer -> Integer
-captcha nums =
+captcha num =
+    sum (zipWith identityIfEqual withHead (tail withHead))
+    where digits = digs num
+          withHead = concatHead digits
+          identityIfEqual x y = if x == y then x else 0
+
+captchaOld :: Integer -> Integer
+captchaOld nums =
     sum [if x1 == x2 then x1 else 0 | (x1, x2) <- consecutivePairs (concatHead (digs nums))]
 
 captcha2 :: Integer -> Integer
